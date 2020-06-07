@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ackermann_cmd_mux)
-find_package(catkin REQUIRED COMPONENTS roscpp pluginlib nodelet dynamic_reconfigure ackermann_msgs)
+find_package(catkin REQUIRED COMPONENTS 
+	roscpp 
+	pluginlib 
+	nodelet 
+	dynamic_reconfigure 
+	ackermann_msgs
+	std_msgs
+	rospy
+)
 
 # pkg-config support
 find_package(PkgConfig)
@@ -16,7 +24,7 @@ generate_dynamic_reconfigure_options(cfg/reload.cfg)
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES ${PROJECT_NAME}_nodelet
-   CATKIN_DEPENDS roscpp pluginlib nodelet dynamic_reconfigure ackermann_msgs
+   CATKIN_DEPENDS roscpp pluginlib nodelet dynamic_reconfigure ackermann_msgs rospy std_msgs
    DEPENDS yaml-cpp
 )
 
@@ -24,7 +32,7 @@ include_directories(include ${catkin_INCLUDE_DIRS} ${yaml-cpp_INCLUDE_DIRS})
 
 # Nodelet library
 add_library(${PROJECT_NAME}_nodelet src/ackermann_cmd_mux_nodelet.cpp src/ackermann_cmd_subscribers.cpp)
-add_dependencies(${PROJECT_NAME}_nodelet ackermann_msgs_gencpp)
+#add_dependencies(${PROJECT_NAME}_nodelet ackermann_msgs)
 add_dependencies(${PROJECT_NAME}_nodelet ${PROJECT_NAME}_gencfg)
 
 target_link_libraries(${PROJECT_NAME}_nodelet ${catkin_LIBRARIES} ${yaml-cpp_LIBRARIES})

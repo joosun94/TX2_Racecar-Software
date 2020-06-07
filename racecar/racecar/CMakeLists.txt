@@ -84,8 +84,6 @@ catkin_package(
     tf2_ros
     urg_node
     joy
-    joy_teleop
-    laser_scan_matcher
     rosbag
     rostopic
     rviz
